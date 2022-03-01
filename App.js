@@ -76,6 +76,8 @@ export default function App() {
                   tabBarInactiveTintColor: "gray",
                 }}
               >
+                {/* ---------- TAB HOME ---------- */}
+
                 <Tab.Screen
                   name="TabHome"
                   options={{
@@ -85,65 +87,89 @@ export default function App() {
                     ),
                   }}
                 >
+                  {(props) => {
+                    // console.log(props);
+                    return (
+                      <Stack.Navigator>
+                        <Stack.Screen
+                          name="Home"
+                          options={{
+                            // title: "Airbnb",
+                            // headerStyle: { backgroundColor: "#F95B60" },
+                            // headerTitleStyle: { color: "white" },
+                            headerTitle: () => (
+                              <Image
+                                source={require("./assets/Airbnb-Logo.png")}
+                                style={{ width: 35, height: 35 }}
+                              />
+                            ),
+                          }}
+                        >
+                          {() => <HomeScreen />}
+                        </Stack.Screen>
+                        <Stack.Screen
+                          name="Room"
+                          options={{
+                            headerTitle: () => (
+                              <Image
+                                source={require("./assets/Airbnb-Logo.png")}
+                                style={{ width: 35, height: 35 }}
+                              />
+                            ),
+                          }}
+                        >
+                          {(props) => <RoomScreen {...props} />}
+                        </Stack.Screen>
+                        <Stack.Screen
+                          name="Profile"
+                          options={{
+                            title: "User Profile",
+                          }}
+                        >
+                          {() => <ProfileScreen />}
+                        </Stack.Screen>
+                      </Stack.Navigator>
+                    );
+                  }}
+                </Tab.Screen>
+
+                {/* ---------- TAB AROUND ME ---------- */}
+
+                <Tab.Screen
+                  name="AroundTab"
+                  options={{
+                    tabBarLabel: "Around Me",
+                    tabBarIcon: ({ color, size }) => {
+                      return (
+                        <Feather name="map-pin" size={size} color={color} />
+                      );
+                    },
+                  }}
+                >
                   {() => (
                     <Stack.Navigator>
                       <Stack.Screen
-                        name="Home"
                         options={{
-                          // title: "Airbnb",
-                          // headerStyle: { backgroundColor: "#F95B60" },
-                          // headerTitleStyle: { color: "white" },
-                          headerTitle: () => (
-                            <Image
-                              source={require("./assets/Airbnb-Logo.png")}
-                              style={{ width: 35, height: 35 }}
-                            />
-                          ),
+                          headerShown: false,
                         }}
-                      >
-                        {() => <HomeScreen />}
-                      </Stack.Screen>
-                      <Stack.Screen
-                        name="Room"
-                        component={RoomScreen}
-                        options={{
-                          headerTitle: () => (
-                            <Image
-                              source={require("./assets/Airbnb-Logo.png")}
-                              style={{ width: 35, height: 35 }}
-                            />
-                          ),
-                        }}
+                        name="Around"
+                        component={AroundMe}
                       />
-                      <Stack.Screen
-                        name="Profile"
-                        options={{
-                          title: "User Profile",
-                        }}
-                      >
-                        {() => <ProfileScreen />}
-                      </Stack.Screen>
+                      {/* Depuis la tab "Around Me" on peut accéder à la page Room */}
+                      {/* <Stack.Screen name="Room" component={RoomScreen} /> */}
                     </Stack.Navigator>
                   )}
                 </Tab.Screen>
-                <Tab.Screen
-                  name="Around me"
-                  component={AroundMe}
-                  options={{
-                    tabBarLabel: "Around me",
-                    tabBarIcon: ({ color, size }) => (
-                      <Feather name={"map-pin"} size={size} color={color} />
-                    ),
-                  }}
-                />
+
+                {/* ---------- TAB PROFILE ---------- */}
 
                 <Tab.Screen
-                  name="TabSettings"
+                  name="TabProfile"
                   options={{
-                    tabBarLabel: "Settings",
+                    tabBarLabel: "My Profile",
                     tabBarIcon: ({ color, size }) => (
                       <Ionicons
-                        name={"ios-options"}
+                        name={"person-outline"}
                         size={size}
                         color={color}
                       />
@@ -153,12 +179,12 @@ export default function App() {
                   {() => (
                     <Stack.Navigator>
                       <Stack.Screen
-                        name="Settings"
+                        name="Profile"
                         options={{
-                          title: "Settings",
+                          title: "Profile",
                         }}
                       >
-                        {() => <SettingsScreen setToken={setToken} />}
+                        {() => <ProfileScreen setToken={setToken} />}
                       </Stack.Screen>
                     </Stack.Navigator>
                   )}

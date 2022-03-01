@@ -24,7 +24,7 @@ const AroundMe = ({ navigation }) => {
         const response = await axios.get(
           `https://express-airbnb-api.herokuapp.com/rooms/around?latitude=${location.coords.latitude}&longitude=${location.coords.longitude}`
         );
-        console.log(response.data);
+        // console.log(response.data);
         setData(response.data);
         setIsLoading(false);
       }
