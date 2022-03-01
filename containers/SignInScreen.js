@@ -20,7 +20,7 @@ export default function SignInScreen({ setToken }) {
   const [visible, setVisible] = useState(false);
 
   const logIn = async () => {
-    console.log(email, password);
+    // console.log(email, password);
     try {
       if (email && password) {
         setError("");
@@ -28,14 +28,14 @@ export default function SignInScreen({ setToken }) {
           "https://express-airbnb-api.herokuapp.com/user/log_in",
           { email: email, password: password }
         );
-        console.log(response.data);
+        // console.log(response.data);
         setToken(response.data.token);
       } else {
         setError("Please fill all fields.");
       }
     } catch (error) {
-      console.log(error.response.status);
-      console.log(error.response.data);
+      // console.log(error.response.status);
+      // console.log(error.response.data);
       if (
         error.response.status === "401" ||
         error.response.data.error === "Unauthorized"

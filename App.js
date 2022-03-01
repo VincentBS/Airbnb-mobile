@@ -1,15 +1,18 @@
 import React, { useState, useEffect } from "react";
+import { Image } from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import { Ionicons } from "@expo/vector-icons";
+import { Ionicons, Feather } from "@expo/vector-icons";
 import HomeScreen from "./containers/HomeScreen";
 import ProfileScreen from "./containers/ProfileScreen";
 import SignInScreen from "./containers/SignInScreen";
 import SignUpScreen from "./containers/SignUpScreen";
 import SettingsScreen from "./containers/SettingsScreen";
 import SplashScreen from "./containers/SplashScreen";
+import RoomScreen from "./containers/RoomScreen";
+import AroundMe from "./containers/AroundMe";
 
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
@@ -87,14 +90,31 @@ export default function App() {
                       <Stack.Screen
                         name="Home"
                         options={{
-                          title: "My App",
-                          headerStyle: { backgroundColor: "red" },
-                          headerTitleStyle: { color: "white" },
+                          // title: "Airbnb",
+                          // headerStyle: { backgroundColor: "#F95B60" },
+                          // headerTitleStyle: { color: "white" },
+                          headerTitle: () => (
+                            <Image
+                              source={require("./assets/Airbnb-Logo.png")}
+                              style={{ width: 35, height: 35 }}
+                            />
+                          ),
                         }}
                       >
                         {() => <HomeScreen />}
                       </Stack.Screen>
-
+                      <Stack.Screen
+                        name="Room"
+                        component={RoomScreen}
+                        options={{
+                          headerTitle: () => (
+                            <Image
+                              source={require("./assets/Airbnb-Logo.png")}
+                              style={{ width: 35, height: 35 }}
+                            />
+                          ),
+                        }}
+                      />
                       <Stack.Screen
                         name="Profile"
                         options={{
@@ -106,6 +126,17 @@ export default function App() {
                     </Stack.Navigator>
                   )}
                 </Tab.Screen>
+                <Tab.Screen
+                  name="Around me"
+                  component={AroundMe}
+                  options={{
+                    tabBarLabel: "Around me",
+                    tabBarIcon: ({ color, size }) => (
+                      <Feather name={"map-pin"} size={size} color={color} />
+                    ),
+                  }}
+                />
+
                 <Tab.Screen
                   name="TabSettings"
                   options={{
