@@ -1,12 +1,10 @@
 import { useRoute } from "@react-navigation/core";
-import { Text, View } from "react-native";
+import { Text, View, Button } from "react-native";
 
 import { useState, useEffect } from "react";
 import axios from "axios";
 
 import * as ImagePicker from "expo-image-picker";
-import { Button } from "react-native-paper";
-import { get } from "react-native/Libraries/Utilities/PixelRatio";
 
 export default function ProfileScreen({ setToken, userToken, setId, userId }) {
   const [email, setEmail] = useState();
@@ -17,7 +15,6 @@ export default function ProfileScreen({ setToken, userToken, setId, userId }) {
   const [errorMessage, setErrorMessage] = useState();
 
   useEffect(() => {
-    0;
     const fetchData = async () => {
       try {
         const response = await axios.get(
@@ -28,7 +25,7 @@ export default function ProfileScreen({ setToken, userToken, setId, userId }) {
             },
           }
         );
-        console.log(response.data);
+        // console.log(response.data);
         setEmail(response.data.email);
         setUsername(response.data.username);
         setDescription(response.data.description);
@@ -45,7 +42,7 @@ export default function ProfileScreen({ setToken, userToken, setId, userId }) {
     const { status } = await ImagePicker.requestMediaLibraryPermissionsAsync();
     if (status === "granted") {
       const result = await ImagePicker.launchImageLibraryAsync();
-      console.log(result);
+      // console.log(result);
     } else {
       alert("Permission denied");
     }
