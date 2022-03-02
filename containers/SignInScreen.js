@@ -28,7 +28,7 @@ export default function SignInScreen({ setToken, setId }) {
           "https://express-airbnb-api.herokuapp.com/user/log_in",
           { email: email, password: password }
         );
-        // console.log(response.data);
+        console.log("userId reçu ===>", response.data);
         setToken(response.data.token);
         setId(response.data.id);
       } else {

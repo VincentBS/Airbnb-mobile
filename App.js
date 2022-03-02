@@ -33,9 +33,9 @@ export default function App() {
 
   const setId = async (id) => {
     if (id) {
-      AsyncStorage.setItem("userId", id);
+      await AsyncStorage.setItem("userId", id);
     } else {
-      AsyncStorage.removeItem("userId");
+      await AsyncStorage.removeItem("userId");
     }
     setUserId(id);
   };
@@ -45,7 +45,7 @@ export default function App() {
     const bootstrapAsync = async () => {
       // We should also handle error for production apps
       const userToken = await AsyncStorage.getItem("userToken");
-
+      const userId = await AsyncStorage.getItem("userId");
       // This will switch to the App screen or Auth screen and this loading
       // screen will be unmounted and thrown away.
       setUserToken(userToken);
@@ -68,10 +68,10 @@ export default function App() {
           // No token found, user isn't signed in
           <>
             <Stack.Screen name="SignIn">
-              {() => <SignInScreen setToken={setToken} />}
+              {() => <SignInScreen setToken={setToken} setId={setId} />}
             </Stack.Screen>
             <Stack.Screen name="SignUp">
-              {() => <SignUpScreen setToken={setToken} />}
+              {() => <SignUpScreen setToken={setToken} setId={setId} />}
             </Stack.Screen>
           </>
         ) : (
