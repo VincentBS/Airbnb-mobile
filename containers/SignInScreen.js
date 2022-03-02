@@ -13,7 +13,7 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import { useNavigation } from "@react-navigation/native";
 import { Feather } from "@expo/vector-icons";
 
-export default function SignInScreen({ setToken }) {
+export default function SignInScreen({ setToken, setId }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
@@ -30,6 +30,7 @@ export default function SignInScreen({ setToken }) {
         );
         // console.log(response.data);
         setToken(response.data.token);
+        setId(response.data.id);
       } else {
         setError("Please fill all fields.");
       }

@@ -20,6 +20,7 @@ const Stack = createNativeStackNavigator();
 export default function App() {
   const [isLoading, setIsLoading] = useState(true);
   const [userToken, setUserToken] = useState(null);
+  const [userId, setUserId] = useState(null);
 
   const setToken = async (token) => {
     if (token) {
@@ -27,8 +28,16 @@ export default function App() {
     } else {
       await AsyncStorage.removeItem("userToken");
     }
-
     setUserToken(token);
+  };
+
+  const setId = async (id) => {
+    if (id) {
+      AsyncStorage.setItem("userId", id);
+    } else {
+      AsyncStorage.removeItem("userId");
+    }
+    setUserId(id);
   };
 
   useEffect(() => {
@@ -40,7 +49,7 @@ export default function App() {
       // This will switch to the App screen or Auth screen and this loading
       // screen will be unmounted and thrown away.
       setUserToken(userToken);
-
+      setUserId(userId);
       setIsLoading(false);
     };
 
@@ -179,12 +188,24 @@ export default function App() {
                   {() => (
                     <Stack.Navigator>
                       <Stack.Screen
-                        name="Profile"
+                        name="ProfileScreen"
                         options={{
-                          title: "Profile",
+                          headerTitle: () => (
+                            <Image
+                              source={require("./assets/Airbnb-Logo.png")}
+                              style={{ width: 35, height: 35 }}
+                            />
+                          ),
                         }}
                       >
-                        {() => <ProfileScreen setToken={setToken} />}
+                        {() => (
+                          <ProfileScreen
+                            setToken={setToken}
+                            userToken={userToken}
+                            setId={setId}
+                            userId={userId}
+                          />
+                        )}
                       </Stack.Screen>
                     </Stack.Navigator>
                   )}
