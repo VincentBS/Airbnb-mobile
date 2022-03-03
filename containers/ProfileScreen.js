@@ -1,7 +1,6 @@
 import {
   Text,
   View,
-  Button,
   TouchableOpacity,
   Image,
   SafeAreaView,
@@ -99,16 +98,23 @@ export default function ProfileScreen({ setToken, userToken, setId, userId }) {
         }
         if (selectedPicture) {
           const tab = selectedPicture.split(".");
+          const extension = tab[tab.length - 1];
           const formData = new FormData();
           formData.append("photo", {
             uri: selectedPicture,
-            name: `${data.username}.${tab[1]}`,
-            type: `image/${tab[1]}`,
+            name: `${data.username}.${extension}`,
+            type: `image/${extension}`,
           });
           const response = await axios.put(
             "https://express-airbnb-api.herokuapp.com/user/upload_picture",
             formData,
-            { headers: { authorization: `Bearer ${userToken}` } }
+            {
+              headers: {
+                authorization: `Bearer ${userToken}`,
+                // Accept: "application/json",
+                // "Content-Type": "multipart/form-data",
+              },
+            }
           );
           if (response.data) {
             setMessage("Informations updated");
@@ -192,7 +198,7 @@ export default function ProfileScreen({ setToken, userToken, setId, userId }) {
 }
 
 const styles = StyleSheet.create({
-  avatarArea: { justifyContent: "center", flexDirection: "row", marginTop: 15 },
+  avatarArea: { justifyContent: "center", flexDirection: "row", marginTop: 30 },
   avatar: {
     alignItems: "center",
     justifyContent: "center",
@@ -203,7 +209,7 @@ const styles = StyleSheet.create({
     borderRadius: 180,
     marginRight: 15,
   },
-  avatarImage: { borderRadius: 180 },
+  avatarImage: { borderRadius: 180, height: 150, width: 150 },
   inputText: {
     height: 50,
     borderBottomColor: "#FFBCC2",
@@ -233,7 +239,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     width: 200,
     borderRadius: 45,
-    marginTop: 20,
+    marginTop: 10,
   },
   btnLogOut: {
     height: 50,
