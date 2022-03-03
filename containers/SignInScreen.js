@@ -14,8 +14,8 @@ import { useNavigation } from "@react-navigation/native";
 import { Feather } from "@expo/vector-icons";
 
 export default function SignInScreen({ setToken, setId }) {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [email, setEmail] = useState("brice@lereacteur.io");
+  const [password, setPassword] = useState("azerty");
   const [error, setError] = useState("");
   const [visible, setVisible] = useState(false);
 
@@ -28,7 +28,7 @@ export default function SignInScreen({ setToken, setId }) {
           "https://express-airbnb-api.herokuapp.com/user/log_in",
           { email: email, password: password }
         );
-        console.log("userId reçu ===>", response.data);
+        // console.log("userId reçu ===>", response.data);
         setToken(response.data.token);
         setId(response.data.id);
       } else {
